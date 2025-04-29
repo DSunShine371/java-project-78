@@ -36,5 +36,5 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Build and analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_2 }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: make sonar
