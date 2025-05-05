@@ -3,12 +3,15 @@ package hexlet.code;
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ValidatorTests {
+class ValidatorStringSchemaTests {
     Validator validator;
 
     @BeforeEach
@@ -16,28 +19,26 @@ class ValidatorTests {
         validator = new Validator();
     }
 
-    @Test
-    void testValidatorString() {
-        assertEquals(validator.string().getClass(), StringSchema.class);
-    }
-
-    @Test
-    void testDefaultStringSchema() {
+    @ParameterizedTest
+    @NullSource
+    @EmptySource
+    @ValueSource(strings = {"some text", "word", "l", "6", " "})
+    void testDefaultStringSchema(String value) {
         StringSchema schema = validator.string();
-        assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid(""));
-        assertTrue(schema.isValid("some text"));
-        assertTrue(schema.isValid("word"));
-        assertTrue(schema.isValid("l"));
-        assertTrue(schema.isValid("6"));
+        assertTrue(schema.isValid(value));
     }
 
-    @Test
-    void testStringSchemaRequiredRule() {
+    @ParameterizedTest
+    @NullSource
+    @EmptySource
+    @ValueSource(strings = {"some text", " "})
+    void testStringSchemaRequiredRule(String value) {
         StringSchema schema = validator.string().required();
-        assertFalse(schema.isValid(""));
-        assertFalse(schema.isValid(null));
-        assertTrue(schema.isValid("some text"));
+        if (value == null || value.isEmpty()) {
+            assertFalse(schema.isValid(value));
+        } else {
+            assertTrue(schema.isValid(value));
+        }
     }
 
     @Test
@@ -63,7 +64,7 @@ class ValidatorTests {
     }
 
     @Test
-    void testStringSchemaMultiRule() {
+    void testStringSchemaCombinedRule() {
         StringSchema schema = validator.string()
                 .required()
                 .minLength(6)
@@ -81,5 +82,14 @@ class ValidatorTests {
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid("this x** text must be correct"));
         assertFalse(schema.isValid("x** text"));
+    }
+
+    @Test
+    void testStringSchemaNonStringValue() {
+        StringSchema schema = validator.string();
+        int value1 = 5;
+        assertFalse(schema.isValid(value1));
+        boolean value2 = true;
+        assertFalse(schema.isValid(value2));
     }
 }
