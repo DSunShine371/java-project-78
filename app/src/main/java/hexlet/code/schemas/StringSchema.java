@@ -5,12 +5,7 @@ import java.util.List;
 
 public class StringSchema extends BaseSchema<StringSchema> {
     private Integer minLength;
-    private List<String> substrings = new ArrayList<>();
-
-    public StringSchema required() {
-        this.isRequired = true;
-        return this;
-    }
+    private final List<String> substrings = new ArrayList<>();
 
     public StringSchema minLength(int length) {
         this.minLength = length;
@@ -22,6 +17,7 @@ public class StringSchema extends BaseSchema<StringSchema> {
         return this;
     }
 
+    @Override
     public boolean isValid(Object value) {
         if (value == null) {
             return !isRequired;

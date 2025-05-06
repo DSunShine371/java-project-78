@@ -13,7 +13,7 @@ group = "hexlet.code"
 version = "1.0"
 
 application {
-    mainClass.set("hexlet.code.App")
+    mainClass.set("hexlet.code.Validator")
 }
 
 repositories {
