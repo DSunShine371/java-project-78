@@ -63,6 +63,8 @@ class ValidatorNumberSchemaTests {
     })
     void testIntRange(int min, int max, int testValue) {
         IntRange range = new IntRange(min, max);
+        assertFalse(range.isIncluded(null));
+
         if (testValue >= min && testValue <= max) {
             assertTrue(range.isIncluded(testValue));
         } else {
