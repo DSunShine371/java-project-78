@@ -1,8 +1,13 @@
 package hexlet.code.schemas;
 
-public class NumberSchema extends BaseSchema<NumberSchema>  {
+public class NumberSchema extends BaseSchema<Number>  {
     private boolean isPositive;
     private IntRange range;
+
+    public NumberSchema required() {
+        this.isRequired = true;
+        return this;
+    }
 
     public NumberSchema positive() {
         this.isPositive = true;

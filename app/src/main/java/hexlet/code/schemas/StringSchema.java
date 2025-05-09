@@ -3,9 +3,14 @@ package hexlet.code.schemas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringSchema extends BaseSchema<StringSchema> {
+public class StringSchema extends BaseSchema<String> {
     private Integer minLength;
     private final List<String> substrings = new ArrayList<>();
+
+    public StringSchema required() {
+        this.isRequired = true;
+        return this;
+    }
 
     public StringSchema minLength(int length) {
         this.minLength = length;

@@ -2,9 +2,14 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema extends BaseSchema<MapSchema> {
+public class MapSchema extends BaseSchema<Map> {
     private Map<String, BaseSchema<?>> shapeSchemas;
     private Integer size;
+
+    public MapSchema required() {
+        this.isRequired = true;
+        return this;
+    }
 
     public MapSchema sizeof(int mapSize) {
         this.size = mapSize;
