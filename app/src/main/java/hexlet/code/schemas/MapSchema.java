@@ -6,6 +6,11 @@ public class MapSchema extends BaseSchema<MapSchema> {
     private Map<String, BaseSchema<?>> shapeSchemas;
     private Integer size;
 
+    public MapSchema required() {
+        this.isRequired = true;
+        return this;
+    }
+
     public MapSchema sizeof(int mapSize) {
         this.size = mapSize;
         return this;

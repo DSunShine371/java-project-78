@@ -7,6 +7,11 @@ public class StringSchema extends BaseSchema<StringSchema> {
     private Integer minLength;
     private final List<String> substrings = new ArrayList<>();
 
+    public StringSchema required() {
+        this.isRequired = true;
+        return this;
+    }
+
     public StringSchema minLength(int length) {
         this.minLength = length;
         return this;
