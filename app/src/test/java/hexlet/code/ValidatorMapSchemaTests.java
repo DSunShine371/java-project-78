@@ -78,23 +78,16 @@ class ValidatorMapSchemaTests {
 
     @Test
     void testMapSchemaShapeRule() {
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", validator.string().required());
-        schemas.put("lastName", validator.string().required().minLength(2));
-        schemas.put("age", validator.number().range(18, 60));
+        schemas.put("lastName", validator.string().minLength(2));
 
         MapSchema schema = validator.map().shape(schemas);
         Map<String, Object> date = new HashMap<>();
-        date.put("firstName", "Helen");
-        assertFalse(schema.isValid(date));
-
         date.put("lastName", "Garden");
-        assertTrue(schema.isValid(date));
-
-        date.put("age", 12);
         assertFalse(schema.isValid(date));
 
-        date.put("age", 22);
+        date.put("firstName", "Helen");
         assertTrue(schema.isValid(date));
 
         date.put("sex", "female");
@@ -103,7 +96,7 @@ class ValidatorMapSchemaTests {
 
     @Test
     void testMapSchemaEmptyShapeRule() {
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         MapSchema schema = validator.map().shape(schemas);
         Map<String, String> date = new HashMap<>();
         date.put("key", "value");
@@ -112,7 +105,7 @@ class ValidatorMapSchemaTests {
 
     @Test
     void testMapSchemaCombinedRules() {
-        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("key1", validator.string().required().minLength(5).contains("1"));
 
         MapSchema schema = validator.map().required().shape(schemas).sizeof(2);
