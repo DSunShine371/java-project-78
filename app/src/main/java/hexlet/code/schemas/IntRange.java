@@ -1,15 +1,15 @@
 package hexlet.code.schemas;
 
-public class IntRange {
+public final class IntRange {
     private final int min;
     private final int max;
 
-    public IntRange(int min, int max) {
-        if (min > max) {
+    public IntRange(int pMin, int pMax) {
+        if (pMin > pMax) {
             throw new IllegalArgumentException("Минимальное значение диапазона не может быть больше максимального");
         }
-        this.min = min;
-        this.max = max;
+        this.min = pMin;
+        this.max = pMax;
     }
 
     public boolean isIncluded(Integer value) {

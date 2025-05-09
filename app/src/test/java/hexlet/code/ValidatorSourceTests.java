@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ValidatorSourceTests {
-    Validator validator;
+    private Validator validator;
 
     @BeforeEach
     void validatorPreparation() {
