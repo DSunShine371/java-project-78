@@ -4,11 +4,6 @@ public class NumberSchema extends BaseSchema<NumberSchema>  {
     private boolean isPositive;
     private IntRange range;
 
-    public NumberSchema required() {
-        this.isRequired = true;
-        return this;
-    }
-
     public NumberSchema positive() {
         this.isPositive = true;
         return this;
