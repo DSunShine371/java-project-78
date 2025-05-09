@@ -18,13 +18,14 @@ public class NumberSchema extends BaseSchema<NumberSchema>  {
     public boolean isValid(Object value) {
         if (value == null) {
             return !isRequired;
+        } else {
+            if (!(value instanceof Integer intValue)) {
+                return false;
+            }
+            if (isPositive && intValue <= 0) {
+                return false;
+            }
+            return this.range == null || this.range.isIncluded(intValue);
         }
-        if (!(value instanceof Integer intValue)) {
-            return false;
-        }
-        if (isPositive && intValue <= 0) {
-            return false;
-        }
-        return this.range == null || this.range.isIncluded(intValue);
     }
 }

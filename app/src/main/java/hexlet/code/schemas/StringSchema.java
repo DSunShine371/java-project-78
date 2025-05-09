@@ -21,22 +21,22 @@ public class StringSchema extends BaseSchema<StringSchema> {
     public boolean isValid(Object value) {
         if (value == null) {
             return !isRequired;
-        }
-        if (!(value instanceof String stringValue)) {
-            return false;
-        }
-        if (stringValue.isEmpty()) {
-            return !isRequired;
-        }
-        if (minLength != null && stringValue.length() < minLength) {
-            return false;
-        }
-
-        for (String substring : substrings) {
-            if (!stringValue.contains(substring)) {
+        } else {
+            if (!(value instanceof String stringValue)) {
                 return false;
             }
+            if (stringValue.isEmpty()) {
+                return !isRequired;
+            }
+            if (minLength != null && stringValue.length() < minLength) {
+                return false;
+            }
+            for (String substring : substrings) {
+                if (!stringValue.contains(substring)) {
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
     }
 }
