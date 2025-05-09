@@ -102,6 +102,15 @@ class ValidatorMapSchemaTests {
     }
 
     @Test
+    void testMapSchemaEmptyShapeRule() {
+        Map<String, BaseSchema<?>> schemas = new HashMap<>();
+        MapSchema schema = validator.map().shape(schemas);
+        Map<String, String> date = new HashMap<>();
+        date.put("key", "value");
+        assertTrue(schema.isValid(date));
+    }
+
+    @Test
     void testMapSchemaCombinedRules() {
         Map<String, BaseSchema<?>> schemas = new HashMap<>();
         schemas.put("key1", validator.string().required().minLength(5).contains("1"));
