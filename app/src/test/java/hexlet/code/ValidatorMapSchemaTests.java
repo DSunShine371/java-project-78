@@ -122,6 +122,7 @@ class ValidatorMapSchemaTests {
         Map<String, String> data1 = new HashMap<>();
         data1.put("key1", "value1");
         assertFalse(schema.isValid(data1));
+
         data1.put("key2", "value2");
         assertTrue(schema.isValid(data1));
     }
