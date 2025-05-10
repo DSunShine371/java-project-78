@@ -8,11 +8,11 @@ public abstract class BaseSchema<T> {
     protected Map<String, Predicate<Object>> rules = new HashMap<>();
     protected boolean isRequired;
 
-    protected void addRules(String ruleName, Predicate<Object> predicate) {
+    protected final void addRules(String ruleName, Predicate<Object> predicate) {
         this.rules.put(ruleName, predicate);
     }
 
-    public boolean isValid(Object value) {
+    public final boolean isValid(Object value) {
         if (value == null && isRequired) {
             Predicate<Object> requiredRule = rules.get("required");
             return requiredRule == null || requiredRule.test(null);
