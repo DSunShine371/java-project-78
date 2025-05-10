@@ -1,36 +1,42 @@
 package hexlet.code.schemas;
 
+import java.util.function.Predicate;
+
 public final class NumberSchema extends BaseSchema<Number>  {
-    private boolean isPositive;
-    private IntRange range;
+    public NumberSchema() {
+        addRules(val -> val == null || val instanceof Integer);
+    }
 
     public NumberSchema required() {
         this.isRequired = true;
+        Predicate<Object> requiredRule = value -> {
+            if (value == null) {
+                return false;
+            }
+            return value instanceof Integer;
+        };
+        rules.addFirst(requiredRule);
         return this;
     }
 
     public NumberSchema positive() {
-        this.isPositive = true;
+        addRules(value -> {
+            if (value == null) {
+                return !this.isRequired;
+            }
+            return ((Integer) value) > 0;
+        });
         return this;
     }
 
     public NumberSchema range(int min, int max) {
-        range = new IntRange(min, max);
+        IntRange range = new IntRange(min, max);
+        addRules(value -> {
+            if (value == null) {
+                return !this.isRequired;
+            }
+            return range.isIncluded((Integer) value);
+        });
         return this;
-    }
-
-    @Override
-    public boolean isValid(Object value) {
-        if (value == null) {
-            return !isRequired;
-        } else {
-            if (!(value instanceof Integer intValue)) {
-                return false;
-            }
-            if (isPositive && intValue <= 0) {
-                return false;
-            }
-            return this.range == null || this.range.isIncluded(intValue);
-        }
     }
 }

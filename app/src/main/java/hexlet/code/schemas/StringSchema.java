@@ -1,47 +1,44 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Predicate;
 
 public final class StringSchema extends BaseSchema<String> {
-    private Integer minLength;
-    private final List<String> substrings = new ArrayList<>();
+    public StringSchema() {
+        addRules(value -> value == null || value instanceof String);
+    }
 
     public StringSchema required() {
         this.isRequired = true;
+        Predicate<Object> requiredRule = value -> {
+            if (value == null) {
+                return false;
+            }
+            if (!(value instanceof String)) {
+                return false;
+            }
+            return !((String) value).isEmpty();
+        };
+        rules.addFirst(requiredRule);
         return this;
     }
 
     public StringSchema minLength(int length) {
-        this.minLength = length;
+        addRules(value -> {
+            if (value == null) {
+                return !this.isRequired;
+            }
+            return ((String) value).length() >= length;
+        });
         return this;
     }
 
     public StringSchema contains(String substring) {
-        this.substrings.add(substring);
+        addRules(value -> {
+            if (value == null) {
+                return !this.isRequired;
+            }
+            return ((String) value).contains(substring);
+        });
         return this;
-    }
-
-    @Override
-    public boolean isValid(Object value) {
-        if (value == null) {
-            return !isRequired;
-        } else {
-            if (!(value instanceof String stringValue)) {
-                return false;
-            }
-            if (stringValue.isEmpty()) {
-                return !isRequired;
-            }
-            if (minLength != null && stringValue.length() < minLength) {
-                return false;
-            }
-            for (String substring : substrings) {
-                if (!stringValue.contains(substring)) {
-                    return false;
-                }
-            }
-            return true;
-        }
     }
 }

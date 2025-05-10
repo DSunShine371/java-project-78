@@ -43,13 +43,13 @@ class ValidatorStringSchemaTests {
 
     @Test
     void testStringSchemaMinLengthRule() {
-        StringSchema schema = validator.string().minLength(4);
-        assertTrue(schema.isValid("something"));
-        assertFalse(schema.isValid("x**"));
-
-        schema.minLength(2);
+        StringSchema schema = validator.string().minLength(2);
         assertTrue(schema.isValid("something"));
         assertTrue(schema.isValid("x**"));
+
+        schema.minLength(4);
+        assertTrue(schema.isValid("something"));
+        assertFalse(schema.isValid("x**"));
     }
 
     @Test

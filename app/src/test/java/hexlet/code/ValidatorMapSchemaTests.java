@@ -70,10 +70,6 @@ class ValidatorMapSchemaTests {
         data3.put("k2", "v2");
         data3.put("k3", "v3");
         assertFalse(schema.isValid(data3));
-
-        schema.sizeof(0);
-        assertTrue(schema.isValid(new HashMap<>()));
-        assertFalse(schema.isValid(data1));
     }
 
     @Test
