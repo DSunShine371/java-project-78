@@ -3,9 +3,14 @@ package hexlet.code.schemas;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import static hexlet.code.schemas.RuleNames.DEFAULT;
+import static hexlet.code.schemas.RuleNames.REQUIRED;
+import static hexlet.code.schemas.RuleNames.SHAPE;
+import static hexlet.code.schemas.RuleNames.SIZEOF;
+
 public final class MapSchema extends BaseSchema<Map> {
     public MapSchema() {
-        addRules(val -> val == null || val instanceof Map);
+        addRules(DEFAULT, value -> value == null || value instanceof Map);
     }
 
     public MapSchema required() {
@@ -16,12 +21,12 @@ public final class MapSchema extends BaseSchema<Map> {
             }
             return value instanceof Map;
         };
-        rules.addFirst(requiredRule);
+        addRules(REQUIRED, requiredRule);
         return this;
     }
 
     public MapSchema sizeof(int mapSize) {
-        addRules(value -> {
+        addRules(SIZEOF, value -> {
             if (value == null) {
                 return !this.isRequired;
             }
@@ -31,7 +36,7 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
-        addRules(value -> {
+        addRules(SHAPE, value -> {
             if (value == null) {
                 return !this.isRequired;
             }

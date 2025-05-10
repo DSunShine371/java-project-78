@@ -2,9 +2,14 @@ package hexlet.code.schemas;
 
 import java.util.function.Predicate;
 
+import static hexlet.code.schemas.RuleNames.CONTAINS;
+import static hexlet.code.schemas.RuleNames.DEFAULT;
+import static hexlet.code.schemas.RuleNames.MIN_LENGTH;
+import static hexlet.code.schemas.RuleNames.REQUIRED;
+
 public final class StringSchema extends BaseSchema<String> {
     public StringSchema() {
-        addRules(value -> value == null || value instanceof String);
+        addRules(DEFAULT, value -> value == null || value instanceof String);
     }
 
     public StringSchema required() {
@@ -18,12 +23,12 @@ public final class StringSchema extends BaseSchema<String> {
             }
             return !((String) value).isEmpty();
         };
-        rules.addFirst(requiredRule);
+        addRules(REQUIRED, requiredRule);
         return this;
     }
 
     public StringSchema minLength(int length) {
-        addRules(value -> {
+        addRules(MIN_LENGTH, value -> {
             if (value == null) {
                 return !this.isRequired;
             }
@@ -33,7 +38,7 @@ public final class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema contains(String substring) {
-        addRules(value -> {
+        addRules(CONTAINS, value -> {
             if (value == null) {
                 return !this.isRequired;
             }

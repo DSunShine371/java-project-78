@@ -2,9 +2,14 @@ package hexlet.code.schemas;
 
 import java.util.function.Predicate;
 
+import static hexlet.code.schemas.RuleNames.DEFAULT;
+import static hexlet.code.schemas.RuleNames.POSITIVE;
+import static hexlet.code.schemas.RuleNames.RANGE;
+import static hexlet.code.schemas.RuleNames.REQUIRED;
+
 public final class NumberSchema extends BaseSchema<Number>  {
     public NumberSchema() {
-        addRules(val -> val == null || val instanceof Integer);
+        addRules(DEFAULT, value -> value == null || value instanceof Integer);
     }
 
     public NumberSchema required() {
@@ -15,12 +20,12 @@ public final class NumberSchema extends BaseSchema<Number>  {
             }
             return value instanceof Integer;
         };
-        rules.addFirst(requiredRule);
+        addRules(REQUIRED, requiredRule);
         return this;
     }
 
     public NumberSchema positive() {
-        addRules(value -> {
+        addRules(POSITIVE, value -> {
             if (value == null) {
                 return !this.isRequired;
             }
@@ -31,7 +36,7 @@ public final class NumberSchema extends BaseSchema<Number>  {
 
     public NumberSchema range(int min, int max) {
         IntRange range = new IntRange(min, max);
-        addRules(value -> {
+        addRules(RANGE, value -> {
             if (value == null) {
                 return !this.isRequired;
             }
