@@ -8,7 +8,7 @@ import static hexlet.code.schemas.RuleNames.REQUIRED;
 
 public final class NumberSchema extends BaseSchema<Number>  {
     public NumberSchema() {
-        addDefaultRules(value -> value == null || value instanceof Integer);
+        setDefaultRule(value -> value == null || value instanceof Integer);
     }
 
     public NumberSchema required() {

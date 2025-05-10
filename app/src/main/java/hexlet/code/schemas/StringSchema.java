@@ -8,7 +8,7 @@ import static hexlet.code.schemas.RuleNames.REQUIRED;
 
 public final class StringSchema extends BaseSchema<String> {
     public StringSchema() {
-        addDefaultRules(value -> value == null || value instanceof String);
+        setDefaultRule(value -> value == null || value instanceof String);
     }
 
     public StringSchema required() {

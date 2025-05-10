@@ -9,7 +9,7 @@ import static hexlet.code.schemas.RuleNames.SIZEOF;
 
 public final class MapSchema extends BaseSchema<Map> {
     public MapSchema() {
-        addDefaultRules(value -> value == null || value instanceof Map);
+        setDefaultRule(value -> value == null || value instanceof Map);
     }
 
     public MapSchema required() {

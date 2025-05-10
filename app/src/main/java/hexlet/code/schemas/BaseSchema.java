@@ -9,7 +9,7 @@ public abstract class BaseSchema<T> {
     protected Predicate<Object> defaultRule;
     protected boolean isRequired;
 
-    protected final void addDefaultRules(Predicate<Object> dRule) {
+    protected final void setDefaultRule(Predicate<Object> dRule) {
         this.defaultRule = dRule;
     }
 
