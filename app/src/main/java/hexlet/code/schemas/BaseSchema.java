@@ -6,7 +6,12 @@ import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
     protected Map<String, Predicate<Object>> rules = new HashMap<>();
+    protected Predicate<Object> defaultRule;
     protected boolean isRequired;
+
+    protected final void addDefaultRules(Predicate<Object> dRule) {
+        this.defaultRule = dRule;
+    }
 
     protected final void addRules(String ruleName, Predicate<Object> predicate) {
         this.rules.put(ruleName, predicate);
@@ -17,8 +22,7 @@ public abstract class BaseSchema<T> {
             Predicate<Object> requiredRule = rules.get("required");
             return requiredRule == null || requiredRule.test(null);
         }
-        Predicate<Object> defaultRule = rules.get("default");
-        if (!defaultRule.test(value)) {
+        if (defaultRule != null && !defaultRule.test(value)) {
             return false;
         }
         for (Predicate<Object> rule : rules.values()) {

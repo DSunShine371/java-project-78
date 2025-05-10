@@ -3,14 +3,13 @@ package hexlet.code.schemas;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static hexlet.code.schemas.RuleNames.DEFAULT;
 import static hexlet.code.schemas.RuleNames.REQUIRED;
 import static hexlet.code.schemas.RuleNames.SHAPE;
 import static hexlet.code.schemas.RuleNames.SIZEOF;
 
 public final class MapSchema extends BaseSchema<Map> {
     public MapSchema() {
-        addRules(DEFAULT, value -> value == null || value instanceof Map);
+        addDefaultRules(value -> value == null || value instanceof Map);
     }
 
     public MapSchema required() {

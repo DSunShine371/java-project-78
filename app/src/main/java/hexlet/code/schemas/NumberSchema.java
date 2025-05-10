@@ -2,14 +2,13 @@ package hexlet.code.schemas;
 
 import java.util.function.Predicate;
 
-import static hexlet.code.schemas.RuleNames.DEFAULT;
 import static hexlet.code.schemas.RuleNames.POSITIVE;
 import static hexlet.code.schemas.RuleNames.RANGE;
 import static hexlet.code.schemas.RuleNames.REQUIRED;
 
 public final class NumberSchema extends BaseSchema<Number>  {
     public NumberSchema() {
-        addRules(DEFAULT, value -> value == null || value instanceof Integer);
+        addDefaultRules(value -> value == null || value instanceof Integer);
     }
 
     public NumberSchema required() {
