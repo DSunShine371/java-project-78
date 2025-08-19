@@ -2,14 +2,6 @@ package hexlet.code;
 
 import io.javalin.Javalin;
 import lombok.extern.slf4j.Slf4j;
-import io.javalin.rendering.template.JavalinJte;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class App {
